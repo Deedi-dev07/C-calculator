@@ -1,36 +1,49 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main()
 {
+    char *input = NULL;
+    int size = 10;
+    input = (char *)malloc(size * sizeof(char));
 
-    char input[100];
-    char x;
-    int size = 0;
+    if (input == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    input[0] = '\0';
+
+    printf("Enter the equation: ");
+
     int i = 0;
 
     while (1)
     {
-        x = getchar();
-        if (x == '\n') // detecte la fin de la saisie
+
+        char x = getchar();
+        if (x == '\n')
         {
             break;
         }
-        else if (x == ' ') // skip les espaces
+        else if (x == ' ')
         {
             continue;
         }
 
         input[i] = x;
-        input[i + 1] = '\0';
         i++;
         size++;
+        input = (char *)realloc(input, size * sizeof(char));
+        input[i] = '\0';
     }
 
-    for (int j = 0; j < size; j++)
+    for (int j = 0; j < i; j++)
     {
         printf("%c", input[j]);
     }
-
     printf("\n");
 
     return 0;
